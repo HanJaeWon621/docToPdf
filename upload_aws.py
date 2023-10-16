@@ -5,7 +5,7 @@ from botocore.exceptions import NoCredentialsError, PartialCredentialsError
 def upload_s3_object(bucket_name, object_key, local_file_path, flag):
     # AWS S3 자격 증명 설정
     aws_access_key_id = 'AKIAVZU3HPFSKBPM3YIR'
-    aws_secret_access_key = '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'
+    aws_secret_access_key = 'x+6iQ0DO0wG/0gRgm+85hDU52l6Wq0XQ+TGg93Xt1'
    # bucket_name = 'hjw7603'
     
     # S3 클라이언트 생성
@@ -34,7 +34,7 @@ def upload_s3_object(bucket_name, object_key, local_file_path, flag):
 def check_s3_object_exists(bucket_name, object_key):
     # AWS S3 자격 증명 설정
     aws_access_key_id = 'AKIAVZU3HPFSKBPM3YIR'
-    aws_secret_access_key = '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'
+    aws_secret_access_key = 'x+6iQ0DO0wG/0gRgm+85hDU52l6Wq0XQ+TGg93Xt1'
     #bucket_name = 'hjw7603'
     
     # S3 클라이언트 생성
@@ -78,7 +78,7 @@ def upload_file_aws(bucket_name, object_key, local_file_path):
 def delete_s3_object(bucket_name, object_key):
     # AWS S3 자격 증명 설정
     aws_access_key_id = 'AKIAVZU3HPFSKBPM3YIR'
-    aws_secret_access_key = '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'
+    aws_secret_access_key = 'x+6iQ0DO0wG/0gRgm+85hDU52l6Wq0XQ+TGg93Xt1'
    # bucket_name = 'hjw7603'
     
     # S3 클라이언트 생성
