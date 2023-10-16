@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "primal-fulcrum-397600",
+  "private_key_id": "8e675ba4c7091e3897509505cefd44463e3fb5af",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC2M6syq1VsQC1v\nk4r1HV9PCBk3nf8gZANI6F8BXWfMx8+ZHcCBYRVXkyJIT3U6F55dtyJLtf9gmeBY\n9HyG7G4T+eP0XGOxdQJgvBT3hOW7upasfYGYJW1/heABtSFmxDoh6VzhxG2IPGO8\nRNNifXvg+e3KZeZ9uwCeHV86BR0bRU21UUdKMsCwbcF5HYTf/Gv7DerHngVKZ277\nmLnAiw1KD083gVfxjGvXdusr38GVs+gjCoqctUay+0b0gNzs9agLLJsYApYKFRuL\n7XzyuMQQZVmCyuHYRNGs7D5Z4OnPHXj6diw1fJFfOlaachDFwIs/ZYqFx6JRWJ+k\nrJeRRhpXAgMBAAECggEADjPqN8xB9RWY9RuhN146HGUF4jSqEJJQlzxV5jtWaLt3\n+U2Sa1jFWyBDCd6icAwrR3mLw4Rvtc4I6PuV7BvosMdH97fD+wSjUiXB1KbtaZGF\nRp4580GSTuCBXQtg4Svmrtdhas/vDIb4l1Jzeo1MPMtUDUpINKuBGXzcpsnYl6l7\nXK3k06VzyZfD1Ekt41MgurT0Owyl9gJNDIjAsu4lrv3FyAkXmb0rlItrmvtrIP4z\noBKlycXkbdQzZn/hDsZtYloN8Xqy1KVRtF4cdR24M28EU+4/1Yns4wMj0r3mT8rj\n+dnPcjarJRzSJTqb+QYqneo5PnixQfC/UiXZke+FoQKBgQD3OLQuPrxEDkpxRXpg\nnf5D6SN6WWM2jgnq5YjV7VuiW2Qz/hddmnXxyo5L80giBkvETAYsuCZg1zbjMgh/\ncXVwgJufemnf3ZSLl7eNwP4YTV09wmZc9GelUAHxZok9ZS2KnfI0ZLDKIsYlK0AW\n5FYK+LLDtCgB/Zr0uIM5kTETeQKBgQC8q+wY7ycjt7VD58CQkoUvoNkWVLq08iNN\nBcTt1GD/K5BO8sfWUaMfQ4NKR5MB7IvjYi2ZK25ZXIVJ3gisZBuvvCu+eGHO0+6W\nniEdGeaiwDszOQfkepwTF+2IWskJ1gQwAMGjwv441PW3h1giQUEpLebEYPGnnJGK\nTjhZCIvYTwKBgQCz9mAbRenQdMK2AAicqoY8M0tzNfyl6vHHP33DlLxezL59ppql\ntdnjwDqjiR5aPlELPPhFt2uglSnMa1CKTTJbShN/HSJTJz6J+1BP7UxKro6QdaIE\nSpnkWgCAFM8UlUF4pY95mk6jZnrs9bX6tA76f53KHqv8/vq86FAGKO4bqQKBgHyp\nA7h929iHu2cAq4VaqlGL76QHm82O57Auja2u0+AFwrXHSC7dhfBURV1A6WsuBkfZ\nSNOZlLHKpe7mm8h75Kc6p5SUKdvkwBIYrTxzLqZ+aR8xIXvfX1xmRPYBNjAfjmjB\nNzCi2CJo42m+LYeEoi85Ou6qN0FN/APsJuL8+JmVAoGBAOUF/wwagzBvtHUG/M17\nnwt200Yq/hH69pf9A8MJ44xOcgDsRnDLd8peYJwodE6AJ4IDRlAXGCFk9lSgKTDi\nhuSTEsweMpDcYWOjjtMBQkrWnnQiLykHjRbCmYpQlbQQcD9ojr3N6usley9PXASB\nHDuHUy0LjjRZ3FFQbRhXVwSr\n-----END PRIVATE KEY-----\n",
+  "client_email": "id-hjw@primal-fulcrum-397600.iam.gserviceaccount.com",
+  "client_id": "110068248940461776155",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/id-hjw%40primal-fulcrum-397600.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
