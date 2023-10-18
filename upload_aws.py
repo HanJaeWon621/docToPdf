@@ -6,15 +6,9 @@ aws_access_key_id = ''
 aws_secret_access_key = ''
 def upload_s3_object(bucket_name, object_key, local_file_path, flag):
     # AWS S3 자격 증명 설정
-
-   # bucket_name = 'hjw7603'
     
     # S3 클라이언트 생성
     s3 = boto3.client('s3', aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key)
-    
-    # 업로드할 로컬 파일 경로와 S3 버킷 내에서의 객체 키(Key) 설정
-    #local_file_path = 'C:\\pdf\\afwork\\test2_2023930223335.pdf'  # 로컬 파일 경로
-    #s3_object_key = 'share/test2_2023930223335.pdf'  # S3 객체 키
     
     try:
         if flag =='D':
@@ -26,7 +20,7 @@ def upload_s3_object(bucket_name, object_key, local_file_path, flag):
         s3.upload_file(local_file_path, bucket_name, object_key)
         print(f'{local_file_path} 파일이 {bucket_name} 버킷에 성공적으로 업로드되었습니다.')
     except FileNotFoundError:
-        print(f'{local_file_path} 파일을 찾을 수 없습니다.')
+        print(f'{local_file_path} 파일을 찾을 수 없습니다1.')
     except NoCredentialsError:
         print('AWS 자격 증명이 설정되지 않았습니다.')
     except Exception as e:
@@ -63,10 +57,6 @@ def check_s3_object_exists(bucket_name, object_key):
             return False
 def upload_file_aws(bucket_name, object_key, local_file_path):
     # 체크할 S3 버킷 및 객체 키 설정
-    #bucket_name = 'hjw7603'
-    #object_key = 'share/test2_2023930223335.pdf'
-    #local_file_path = 'C:\\pdf\\afwork\\test2_2023930223335.pdf'
-    # S3 객체의 존재 여부 확인
     if check_s3_object_exists(bucket_name, object_key):
         
         print(f"{object_key} 파일이 {bucket_name} 버킷에 존재합니다.")
@@ -76,7 +66,6 @@ def upload_file_aws(bucket_name, object_key, local_file_path):
         upload_s3_object(bucket_name, object_key, local_file_path,'')
 def delete_s3_object(bucket_name, object_key):
     # AWS S3 자격 증명 설정
-    
    # bucket_name = 'hjw7603'
     
     # S3 클라이언트 생성
@@ -87,20 +76,17 @@ def delete_s3_object(bucket_name, object_key):
         print(f"{object_key} 파일이 {bucket_name} 버킷에서 삭제되었습니다.")
             
 
-    except FileNotFoundError:
-        print(f'{local_file_path} 파일을 찾을 수 없습니다.')
+    #except FileNotFoundError:
+        #ㄴprint(f'{object_key} 파일을 찾을 수 없습니다.')
     except NoCredentialsError:
         print('AWS 자격 증명이 설정되지 않았습니다.')
     except Exception as e:
-        print(f'파일 업로드 중 오류 발생: {str(e)}')        
+        print(f'파일 삭제중 오류 발생: {str(e)}')        
 def delete_file_aws(bucket_name, object_key):
     # S3 객체의 존재 여부 확인
-    if check_s3_object_exists(bucket_name, object_key):
-        delete_s3_object(bucket_name, object_key)
+    #if check_s3_object_exists(bucket_name, object_key):
+    delete_s3_object(bucket_name, object_key)
     
 if __name__ == "__main__":
     # 체크할 S3 버킷 및 객체 키 설정
-    bucket_name = 'hjw7603'
-    object_key = 'share/test2_2023930223335.pdf'
-    local_file_path = 'C:\\pdf\\afwork\\test2_2023930223335.pdf'
-    upload_file_aws(bucket_name, object_key, local_file_path)
+    print("main")

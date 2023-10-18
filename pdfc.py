@@ -24,46 +24,59 @@ vertical_layout.grid(row=0, column=0, padx=10, pady=5)
 
 # 수평 레이아웃 1 - 버튼 4개 추가
 horizontal_layout1 = tk.Frame(vertical_layout)
-horizontal_layout1.grid(row=0, column=0, padx=10, pady=10)
-buttonSelectDocxFile = tk.Button(horizontal_layout1, text="변환대상파일조회")
-buttonConvertDocxToPdf = tk.Button(horizontal_layout1, text="파일변환")
-buttonDisplayConvertedPdfFile = tk.Button(horizontal_layout1, text="변환파일조회")
+horizontal_layout1.grid(row=0, column=0, padx=10, pady=10, sticky="w")
+btnSelectDocxFile          = tk.Button(horizontal_layout1, text="변환대상파일조회", padx=5, pady=5)
+#btnSelectDocxFile.config(font=("Gothic", 13), fg="blue")
+btnDisplayConvertedPdfFile = tk.Button(horizontal_layout1, text="변환파일(전송전)조회", padx=5, pady=5)
+btnDisplaySendPdfFile      = tk.Button(horizontal_layout1, text="변환파일(전송후)조회", padx=5, pady=5)
 
-buttonSendFile = tk.Button(horizontal_layout1, text="변환파일전송")
-buttonDelFile = tk.Button(horizontal_layout1, text="변환대상파일삭제")
-buttonDelConvertedFile = tk.Button(horizontal_layout1, text="변환파일(전송전)삭제")
-buttonDelSendFile = tk.Button(horizontal_layout1, text="변환파일(전송후)삭제")
+btnDelFile                 = tk.Button(horizontal_layout1, text="변환대상파일삭제", padx=5, pady=5)
+btnDelConvertedFile        = tk.Button(horizontal_layout1, text="변환파일(전송전)삭제", padx=5, pady=5)
+btnDelSendFile             = tk.Button(horizontal_layout1, text="변환파일(전송후)삭제", padx=5, pady=5)
 
-buttonSelectDocxFile.grid(row=0, column=0, padx=10, pady=10)
-buttonConvertDocxToPdf.grid(row=0, column=1, padx=10, pady=10)
-buttonDelFile.grid(row=0, column=2, padx=10, pady=10)
-buttonDisplayConvertedPdfFile.grid(row=0, column=3, padx=10, pady=10)
-buttonDelConvertedFile.grid(row=0, column=4, padx=10, pady=10)
-buttonSendFile.grid(row=0, column=5, padx=10, pady=10)
+btnSelectDocxFile.grid(row=0, column=0, padx=(40,0), pady=10)
+#btnConvertDocxToPdf.grid(row=0, column=1, padx=10, pady=10)
+btnDelFile.grid(row=0, column=1, padx=10, pady=10)
+
+btnDisplayConvertedPdfFile.grid(row=0, column=3, padx=(160, 0), pady=10)
+btnDelConvertedFile.grid(row=0, column=4, padx=10, pady=10)
+#btnSendFile.grid(row=0, column=5, padx=10, pady=10)
+
+btnDisplaySendPdfFile.grid(row=0, column=6, padx=(120, 0), pady=10)
+btnDelSendFile.grid(row=0, column=7, padx=10, pady=10)
 
 
-buttonDelSendFile.grid(row=0, column=6, padx=10, pady=10)
 
 # 수평 레이아웃 3 - 라벨 추가
 horizontal_layout3 = tk.Frame(vertical_layout)
 horizontal_layout3.grid(row=1, column=0, padx=0, pady=0)
-label = tk.Label(horizontal_layout3, text="변환대상파일")
-label.grid(row=0, column=0, padx=100, pady=0)
-label = tk.Label(horizontal_layout3, text="변환파일(전송전)")
-label.grid(row=0, column=1, padx=100, pady=0)
-label = tk.Label(horizontal_layout3, text="변환파일(전송완료)")
-label.grid(row=0, column=2, padx=100, pady=0)
+label1 = tk.Label(horizontal_layout3, text="            변환대상파일                                                                  ")
+label2 = tk.Label(horizontal_layout3, text="                변환파일(전송전)                                                                 ")
+label3 = tk.Label(horizontal_layout3, text="              변환파일(전송완료)                                                        ")
+label1.grid(row=1, column=0, padx=0, pady=0)
+label2.grid(row=1, column=2, padx=0, pady=0)
+label3.grid(row=1, column=4, padx=0, pady=0)
+
 
 # 수평 레이아웃 2 - 리스트 박스 2개 추가
 horizontal_layout2 = tk.Frame(vertical_layout)
 
 horizontal_layout2.grid(row=2, column=0, padx=10, pady=10)
 listbox1 = tk.Listbox(horizontal_layout2, width=40, height=20, selectmode=tk.MULTIPLE)
+btnConvertDocxToPdf        = tk.Button(horizontal_layout2, text="파일변환->", padx=5, pady=5)
+# 버튼의 글자 크기와 색상 설정
+btnConvertDocxToPdf.config(font=("Gothic", 13), fg="blue")
 listbox2 = tk.Listbox(horizontal_layout2, width=40, height=20, selectmode=tk.MULTIPLE)
+btnSendFile                = tk.Button(horizontal_layout2, text="파일전송->", padx=5, pady=5)
+# 버튼의 글자 크기와 색상 설정
+btnSendFile.config(font=("Gothic", 13), fg="blue")
 listbox3 = tk.Listbox(horizontal_layout2, width=40, height=20, selectmode=tk.MULTIPLE)
-listbox1.grid(row=0, column=0, padx=10, pady=5)
-listbox2.grid(row=0, column=1, padx=10, pady=5)
-listbox3.grid(row=0, column=2, padx=10, pady=5)
+listbox1.grid(row=0, column=0, padx=1, pady=5)
+btnConvertDocxToPdf.grid(row=0, column=1, padx=10, pady=5)
+listbox2.grid(row=0, column=2, padx=1, pady=5)
+btnSendFile.grid(row=0, column=3, padx=10, pady=5)
+listbox3.grid(row=0, column=4, padx=1, pady=5)
+
 
 # 수평 레이아웃 3 - 라벨 추가
 horizontal_layout3 = tk.Frame(vertical_layout)
@@ -343,6 +356,7 @@ def delete_selected_items_list1():
         #listbox2.insert(tk.END, "선택한 항목이 없습니다.")
         label.config(text="선택한 파일 목록이 없습니다.")  # 라벨에 텍스트 입력
 
+    display_docx_files()
 # 변환 파일 삭제
 def delete_selected_items_list2():
     selected_items = listbox2.curselection()  # 선택한 항목의 인덱스 가져오기
@@ -361,7 +375,7 @@ def delete_selected_items_list2():
 
             # PDF로 저장할 파일 경로
             output_path_pdf = pdf_folder_out + "\\" + file_name_without_extension + ".pdf"
-            pdf_file_path = pdf_temp_folder + "\\" + file_name_without_extension + ".pdf"
+            #pdf_file_path = pdf_temp_folder + "\\" + file_name_without_extension + ".pdf"
             docx_folder_out_path = docx_folder_out + "\\" + file_name_without_extension + ".docx"
             try:
                 os.remove(output_path_pdf)
@@ -383,57 +397,55 @@ def delete_selected_items_list2():
         
 # 변환 파일 삭제
 def delete_selected_items_list3():
-    selected_items = listbox2.curselection()  # 선택한 항목의 인덱스 가져오기
-    selected_files = [listbox2.get(idx) for idx in selected_items]  # 선택한 항목 가져오기
+    selected_items = listbox3.curselection()  # 선택한 항목의 인덱스 가져오기
+    selected_files = [listbox3.get(idx) for idx in selected_items]  # 선택한 항목 가져오기
     
     #listbox2.delete(0, tk.END)  # 리스트 박스 내용 초기화
 
     label.config(text="")
     if selected_items:
         for idx in selected_items:
-            selected_file = listbox2.get(idx)
+            selected_file = listbox3.get(idx)
             print(selected_file)
             file_name_without_extension, _ = os.path.splitext(selected_file)  # 파일명과 확장자 분리
             print(file_name_without_extension)
             # 원본 DOCX 파일 경로
 
             # PDF로 저장할 파일 경로
-            output_path_pdf = pdf_folder_out + "\\" + file_name_without_extension + ".pdf"
             output_path_sendpdf = pdf_folder_sendout + "\\" + file_name_without_extension + ".pdf" 
-            pdf_file_path = pdf_temp_folder + "\\" + file_name_without_extension + ".pdf"
             docx_folder_out_path = docx_folder_out + "\\" + file_name_without_extension + ".docx"
             try:
-                os.remove(output_path_pdf)
                 os.remove(output_path_sendpdf)
-                #os.remove(pdf_file_path)
                 os.remove(docx_folder_out_path)
-                print(f'{output_path_pdf} 파일이 삭제되었습니다.')
+                #print(f'{output_path_sendpdf} 파일이 삭제되었습니다.')
+                # 파일이 존재하는지 확인 후 삭제
+                db_key = file_name_without_extension + ".pdf"
+                #share_doc_url = upload_file_to(output_path_pdf, db_key)
+                object_key = 'share/'+ db_key
+                bucket_name ='hjw7603'
+                delete_file_aws(bucket_name, object_key)
+                delete_db(db_key)
             except OSError as e:
                 print(f'파일 삭제 오류: {e}')
-            # 파일이 존재하는지 확인 후 삭제
-            db_key = file_name_without_extension + ".pdf"
-            #share_doc_url = upload_file_to(output_path_pdf, db_key)
-            object_key = 'share/'+ db_key
-            bucket_name ='hjw7603'
-            delete_file_aws(bucket_name, object_key)
-            delete_db(db_key)
+            
         
     
         label.config(text="파일삭제가 성공했습니다.")
-        display_pdf_files()
+        display_send_pdf_files()
     else:
         #listbox2.insert(tk.END, "선택한 항목이 없습니다.")
         label.config(text="선택한 파일 목록이 없습니다.")  # 라벨에 텍스트 입력
         
 # 버튼에 동작 연결
-buttonSelectDocxFile.config(command=display_docx_files)
-buttonConvertDocxToPdf.config(command=convert_selected_items)
-buttonDisplayConvertedPdfFile.config(command=display_pdf_files)
+btnSelectDocxFile.config(command=display_docx_files)
+btnConvertDocxToPdf.config(command=convert_selected_items)
+btnDisplayConvertedPdfFile.config(command=display_pdf_files)
+btnDisplaySendPdfFile.config(command=display_send_pdf_files)
 
-buttonSendFile.config(command=send_selected_items)
-buttonDelFile.config(command=delete_selected_items_list1)
-buttonDelConvertedFile.config(command=delete_selected_items_list2)
-buttonDelSendFile.config(command=delete_selected_items_list3)
+btnSendFile.config(command=send_selected_items)
+btnDelFile.config(command=delete_selected_items_list1)
+btnDelConvertedFile.config(command=delete_selected_items_list2)
+btnDelSendFile.config(command=delete_selected_items_list3)
 
 # GUI 실행
 window.mainloop()
