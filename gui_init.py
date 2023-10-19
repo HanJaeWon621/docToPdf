@@ -1,4 +1,6 @@
 import tkinter as tk
+from tkinter import ttk, messagebox
+
 
 window = tk.Tk()
 window.title("DOCX를 PDF로 변환합니다.")
@@ -114,3 +116,5 @@ def select_all_items3():
         listbox3.selection_clear(0, tk.END)
 
 
+def show_alert(msg):
+    messagebox.showinfo("알림", msg)

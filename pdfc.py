@@ -38,7 +38,9 @@ def display_docx_files():
             listbox1.insert(tk.END, "해당 확장자의 파일을 찾을 수 없습니다.")
     else:
         listbox1.delete(0, tk.END)
-        listbox1.insert(tk.END, "폴더를 찾을 수 없습니다.")
+        #listbox1.insert(tk.END, "폴더를 찾을 수 없습니다.")
+    
+    
 # 리스트 박스2에 pdf파일 로드 pdf_folder_sendout
 def display_pdf_files():
     global listbox2  # 리스트 박스를 전역 변수로 선언
@@ -218,11 +220,7 @@ def send_selected_items():
     if selected_items:
         for idx in selected_items:
             selected_file = listbox2.get(idx)
-            print(selected_file)
             file_name_without_extension, _ = os.path.splitext(selected_file)  # 파일명과 확장자 분리
-            print(file_name_without_extension)
-            # 원본 DOCX 파일 경로
-
             # PDF로 저장할 파일 경로
             output_path_pdf = pdf_folder_out + "\\" + file_name_without_extension + ".pdf"
             sendoutput_path_pdf = pdf_folder_sendout + "\\" + file_name_without_extension + ".pdf"
@@ -237,12 +235,14 @@ def send_selected_items():
             upsert_db(db_key, share_doc_url)
             shutil.move(output_path_pdf, sendoutput_path_pdf)
     
-        label.config(text="파일전송이 성공했습니다.")
+        #label.config(text="파일전송이 성공했습니다.")
+        show_alert("파일전송이 성공했습니다.")
         display_send_pdf_files()
         display_pdf_files()
     else:
         #listbox2.insert(tk.END, "선택한 항목이 없습니다.")
-        label.config(text="선택한 파일 목록이 없습니다.")  # 라벨에 텍스트 입력
+        #label.config(text="선택한 파일 목록이 없습니다.")  # 라벨에 텍스트 입력
+        show_alert("전송할 파일을 선택하세요.")
 
 # 변환대상 파일 삭제
 def delete_selected_items_list1():
@@ -270,11 +270,11 @@ def delete_selected_items_list1():
                 print(f'파일 삭제 오류: {e}')
 
 
-        label.config(text="파일삭제가 성공했습니다.")
+        show_alert("파일삭제가 성공했습니다.")
         display_pdf_files()
     else:
         #listbox2.insert(tk.END, "선택한 항목이 없습니다.")
-        label.config(text="선택한 파일 목록이 없습니다.")  # 라벨에 텍스트 입력
+        show_alert("삭제할 파일을 선택하세요.")  # 라벨에 텍스트 입력
 
     display_docx_files()
 # 변환 파일 삭제
@@ -309,11 +309,11 @@ def delete_selected_items_list2():
             #delete_db(db_key)
         
     
-        label.config(text="파일삭제가 성공했습니다.")
+        show_alert("파일삭제가 성공했습니다.")
         display_pdf_files()
     else:
         #listbox2.insert(tk.END, "선택한 항목이 없습니다.")
-        label.config(text="선택한 파일 목록이 없습니다.")  # 라벨에 텍스트 입력
+        show_alert("삭제할 파일을 선택하세요.")  # 라벨에 텍스트 입력
         
 # 전송완료 파일 삭제
 def delete_selected_items_list3():
@@ -348,13 +348,13 @@ def delete_selected_items_list3():
             except OSError as e:
                 print(f'파일 삭제 오류: {e}')
             
-        
-    
-        label.config(text="파일삭제가 성공했습니다.")
+        #label.config(text="파일삭제가 성공했습니다.")
+        show_alert("파일삭제가 성공했습니다.")
         display_send_pdf_files()
     else:
         #listbox2.insert(tk.END, "선택한 항목이 없습니다.")
-        label.config(text="선택한 파일 목록이 없습니다.")  # 라벨에 텍스트 입력
+        #label.config(text="선택한 파일 목록이 없습니다.")  # 라벨에 텍스트 입력
+        show_alert("삭제할 파일을 선택하세요.")
         
 # 버튼에 동작 연결
 btnSelectDocxFile.config(command=display_docx_files)
@@ -370,9 +370,7 @@ btnDelSendFile.config(command=delete_selected_items_list3)
 btnAllSelFile.config(command=select_all_items1)
 btnAllSelConvertedFile.config(command=select_all_items2)
 btnAllSelSendFile.config(command=select_all_items3)
-#btnAllSelFile btnAllSelConvertedFile btnAllSelSendFile select_all_items1
-#
-#print(a,b)
+
 # GUI 실행
 window.mainloop()
 
