@@ -14,89 +14,10 @@ from upload_aws import *
 from enc_dec import *
 from e_sign import *
 from license import *
+from gui_init import *
 # tkinter 윈도우 생성
-window = tk.Tk()
-window.title("DOCX를 PDF로 변환합니다.")
+#btnAllSelFile btnAllSelConvertedFile btnAllSelSendFile select_all_items1
 
-# 수직 레이아웃을 위한 Frame 생성
-vertical_layout = tk.Frame(window)
-vertical_layout.grid(row=0, column=0, padx=10, pady=5)
-
-# 수평 레이아웃 1 - 버튼 4개 추가
-horizontal_layout1 = tk.Frame(vertical_layout)
-horizontal_layout1.grid(row=0, column=0, padx=10, pady=10, sticky="w")
-btnSelectDocxFile          = tk.Button(horizontal_layout1, text="변환대상파일조회", padx=5, pady=5)
-#btnSelectDocxFile.config(font=("Gothic", 13), fg="blue")
-btnDisplayConvertedPdfFile = tk.Button(horizontal_layout1, text="변환파일(전송전)조회", padx=5, pady=5)
-btnDisplaySendPdfFile      = tk.Button(horizontal_layout1, text="변환파일(전송후)조회", padx=5, pady=5)
-
-btnDelFile                 = tk.Button(horizontal_layout1, text="변환대상파일삭제", padx=5, pady=5)
-btnDelConvertedFile        = tk.Button(horizontal_layout1, text="변환파일(전송전)삭제", padx=5, pady=5)
-btnDelSendFile             = tk.Button(horizontal_layout1, text="변환파일(전송후)삭제", padx=5, pady=5)
-
-btnSelectDocxFile.grid(row=0, column=0, padx=(40,0), pady=10)
-#btnConvertDocxToPdf.grid(row=0, column=1, padx=10, pady=10)
-btnDelFile.grid(row=0, column=1, padx=10, pady=10)
-
-btnDisplayConvertedPdfFile.grid(row=0, column=3, padx=(160, 0), pady=10)
-btnDelConvertedFile.grid(row=0, column=4, padx=10, pady=10)
-#btnSendFile.grid(row=0, column=5, padx=10, pady=10)
-
-btnDisplaySendPdfFile.grid(row=0, column=6, padx=(120, 0), pady=10)
-btnDelSendFile.grid(row=0, column=7, padx=10, pady=10)
-
-
-
-# 수평 레이아웃 3 - 라벨 추가
-horizontal_layout3 = tk.Frame(vertical_layout)
-horizontal_layout3.grid(row=1, column=0, padx=0, pady=0)
-label1 = tk.Label(horizontal_layout3, text="            변환대상파일                                                                  ")
-label2 = tk.Label(horizontal_layout3, text="                변환파일(전송전)                                                                 ")
-label3 = tk.Label(horizontal_layout3, text="              변환파일(전송완료)                                                        ")
-label1.grid(row=1, column=0, padx=0, pady=0)
-label2.grid(row=1, column=2, padx=0, pady=0)
-label3.grid(row=1, column=4, padx=0, pady=0)
-
-
-# 수평 레이아웃 2 - 리스트 박스 2개 추가
-horizontal_layout2 = tk.Frame(vertical_layout)
-
-horizontal_layout2.grid(row=2, column=0, padx=10, pady=10)
-listbox1 = tk.Listbox(horizontal_layout2, width=40, height=20, selectmode=tk.MULTIPLE)
-btnConvertDocxToPdf        = tk.Button(horizontal_layout2, text="파일변환->", padx=5, pady=5)
-# 버튼의 글자 크기와 색상 설정
-btnConvertDocxToPdf.config(font=("Gothic", 13), fg="blue")
-listbox2 = tk.Listbox(horizontal_layout2, width=40, height=20, selectmode=tk.MULTIPLE)
-btnSendFile                = tk.Button(horizontal_layout2, text="파일전송->", padx=5, pady=5)
-# 버튼의 글자 크기와 색상 설정
-btnSendFile.config(font=("Gothic", 13), fg="blue")
-listbox3 = tk.Listbox(horizontal_layout2, width=40, height=20, selectmode=tk.MULTIPLE)
-listbox1.grid(row=0, column=0, padx=1, pady=5)
-btnConvertDocxToPdf.grid(row=0, column=1, padx=10, pady=5)
-listbox2.grid(row=0, column=2, padx=1, pady=5)
-btnSendFile.grid(row=0, column=3, padx=10, pady=5)
-listbox3.grid(row=0, column=4, padx=1, pady=5)
-
-
-# 수평 레이아웃 3 - 라벨 추가
-horizontal_layout3 = tk.Frame(vertical_layout)
-horizontal_layout3.grid(row=3, column=0, padx=10, pady=10)
-label = tk.Label(horizontal_layout3, text="")
-label.grid(row=0, column=0, padx=10, pady=10)
-
-# PDF 폴더 경로
-wokr_root_folder = "C:\\pdf"
-pdf_temp_folder = wokr_root_folder +"\\temppdf"  # PDF 폴더 경로를 적절히 수정하세요.
-pdf_folder_out =  wokr_root_folder +"\\outpdf"  # 변환된 폴더.
-pdf_folder_sendout =  wokr_root_folder +"\\sendpdf"  # 변환된 폴더.
-docx_folder =  wokr_root_folder +"\\workdocx"  # 작업 폴더.
-qr_folder =  wokr_root_folder +"\\qrimg" #qrimg폴더
-docx_folder_out =   wokr_root_folder +"\\outdocx"
-
-#기능 문서 전자서명 처리
-jar=wokr_root_folder +"\\sign\\open-pdf-sign.jar" #수행 프로그램
-crt=wokr_root_folder +"\\sign\\cert.cer" #인증서 파일
-pem=wokr_root_folder +"\\sign\\private_key.pem" # 개인키
 # 확장자에 따라 파일 목록 가져오는 함수
 def get_files(folder, extension):
     return [file for file in os.listdir(folder) if file.endswith(extension)]
@@ -394,7 +315,7 @@ def delete_selected_items_list2():
         #listbox2.insert(tk.END, "선택한 항목이 없습니다.")
         label.config(text="선택한 파일 목록이 없습니다.")  # 라벨에 텍스트 입력
         
-# 변환 파일 삭제
+# 전송완료 파일 삭제
 def delete_selected_items_list3():
     selected_items = listbox3.curselection()  # 선택한 항목의 인덱스 가져오기
     selected_files = [listbox3.get(idx) for idx in selected_items]  # 선택한 항목 가져오기
@@ -415,7 +336,7 @@ def delete_selected_items_list3():
             docx_folder_out_path = docx_folder_out + "\\" + file_name_without_extension + ".docx"
             try:
                 os.remove(output_path_sendpdf)
-                os.remove(docx_folder_out_path)
+                #os.remove(docx_folder_out_path)
                 #print(f'{output_path_sendpdf} 파일이 삭제되었습니다.')
                 # 파일이 존재하는지 확인 후 삭제
                 db_key = file_name_without_extension + ".pdf"
@@ -445,6 +366,11 @@ btnSendFile.config(command=send_selected_items)
 btnDelFile.config(command=delete_selected_items_list1)
 btnDelConvertedFile.config(command=delete_selected_items_list2)
 btnDelSendFile.config(command=delete_selected_items_list3)
+
+btnAllSelFile.config(command=select_all_items1)
+btnAllSelConvertedFile.config(command=select_all_items2)
+btnAllSelSendFile.config(command=select_all_items3)
+#btnAllSelFile btnAllSelConvertedFile btnAllSelSendFile select_all_items1
 #
 #print(a,b)
 # GUI 실행

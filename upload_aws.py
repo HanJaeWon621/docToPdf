@@ -75,9 +75,6 @@ def delete_s3_object(bucket_name, object_key):
         s3 = boto3.client('s3', aws_access_key_id=a[0], aws_secret_access_key=a[1])
         if check_s3_object_exists(bucket_name, object_key):
             s3.delete_object(Bucket=bucket_name, Key=object_key)
-            print(f"{object_key} 파일이 {bucket_name} 버킷에서 삭제되었습니다.")
-        else:
-            print(f"{object_key} 파일이 {bucket_name} 버킷에 존재하지 않습니다.")
             
     #except FileNotFoundError:
         #print(f'{object_key} 파일을 찾을 수 없습니다.')
