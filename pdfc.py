@@ -192,13 +192,12 @@ def convert_selected_items():
             #docx파일을 pdf로 변환
             convert_docx_to_pdf(docx_file_path, pdf_file_out_path)
             #qr생성
+            '''
             qrMake(qrPath, db_key)
             insert_qr_code_into_pdf(pdf_file_out_path, qrPath, output_path_pdf)
-            
-            
-
             sign(jar, output_path_pdf,output_path_pdf, crt, pem)
             convert_pdf_to_docx(output_path_pdf, docx_folder_out_path)
+            '''
             os.remove(pdf_file_out_path) #임시파일삭제
         label.config(text="변환이 성공했습니다.")
         display_pdf_files()
@@ -446,7 +445,8 @@ btnSendFile.config(command=send_selected_items)
 btnDelFile.config(command=delete_selected_items_list1)
 btnDelConvertedFile.config(command=delete_selected_items_list2)
 btnDelSendFile.config(command=delete_selected_items_list3)
-
+#
+#print(a,b)
 # GUI 실행
 window.mainloop()
 

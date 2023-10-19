@@ -1,13 +1,15 @@
 import mysql.connector
+from enc_dec import *
+# MySQL 연결 설정
+config = {
+    'host': 'database-1.c2tc0okknqs6.us-east-1.rds.amazonaws.com',        # MySQL 호스트 주소
+    'user': 'admin',    # MySQL 사용자 이름
+    'password': 'pwd061218*',# MySQL 비밀번호
+    'database': 'share_db' # 사용할 데이터베이스 이름
+}
 
 def upsert_db(file_id, share_doc_url):
-    # MySQL 연결 설정
-    config = {
-        'host': 'database-1.c2tc0okknqs6.us-east-1.rds.amazonaws.com',        # MySQL 호스트 주소
-        'user': 'admin',    # MySQL 사용자 이름
-        'password': 'pwd061218*',# MySQL 비밀번호
-        'database': 'share_db' # 사용할 데이터베이스 이름
-    }
+    
     
     # MySQL 연결
     conn = mysql.connector.connect(**config)
@@ -45,14 +47,9 @@ def upsert_db(file_id, share_doc_url):
     # 연결 종료
     cursor.close()
     conn.close()
+
 def delete_db(file_id):
     # MySQL 연결 설정
-    config = {
-        'host': 'database-1.c2tc0okknqs6.us-east-1.rds.amazonaws.com',        # MySQL 호스트 주소
-        'user': 'admin',    # MySQL 사용자 이름
-        'password': 'pwd061218*',# MySQL 비밀번호
-        'database': 'share_db' # 사용할 데이터베이스 이름
-    }
     
     # MySQL 연결
     conn = mysql.connector.connect(**config)
@@ -80,5 +77,42 @@ def delete_db(file_id):
     # 연결 종료
     cursor.close()
     conn.close()
+a=''
+b=''
+
+def get_aws():
+    global a 
+    global b
+    # MySQL 연결
+    conn = mysql.connector.connect(**config)
+    cursor = conn.cursor()
+     # 키 파일에서 키를 읽어옴
+    with open("c:/pdf/license/license.key", "rb") as key_file:
+        key = key_file.read()
+    # 조회할 데이터
+    file_id_to_search = key  # 조회할 파일 ID에 맞게 수정
+    
+    # 데이터 조회 쿼리
+    select_query = "SELECT * FROM awsk_mgmt WHERE enc_key = %s"
+        
+    # 데이터베이스에서 데이터 조회
+    cursor.execute(select_query, (file_id_to_search,))
+    existing_data = cursor.fetchone()
+    #print(existing_data[1])
+    #print(existing_data[2])
+
+    a = get_dec_awsacckey(key, existing_data[1])
+    b = get_dec_awsacckey(key, existing_data[2])
+    empty_tuple = (a,b)
+    #print(a, b)
+    #print(existing_data.type)
+    
+    # 연결 종료
+    cursor.close()
+    conn.close()
+    return empty_tuple
+
 if __name__ == "__main__":
-    delete_db('testdocx_2023103141147.pdf')
+    empty_tuple = get_aws()
+    print(empty_tuple[0])
+    print(empty_tuple[1])
