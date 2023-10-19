@@ -104,19 +104,16 @@ def get_dec_awssecacckey():
     dec_str = decrypted_data.decode()
     return dec_str  
 if __name__ == "__main__":
-    data_to_encrypt = "20231110"
-    aws_access_key_id = 'AKIAVZU3HPFSJGRATLGV'
-    aws_secret_access_key = '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'
     div='3'
     if div == '1':
-        make_enc(data_to_encrypt)
+        make_enc('1')
         dec_str = get_dec()
     elif div == '2':
-        data_to_encrypt = aws_access_key_id
+        data_to_encrypt = '1'
         make_enc_awsacckey(data_to_encrypt)
         dec_str = get_dec_awsacckey()
     elif div == '3':
-        data_to_encrypt = aws_secret_access_key
+        data_to_encrypt = '1'
         make_enc_awssecacckey(data_to_encrypt)
         dec_str = get_dec_awssecacckey()
     #make_enc(data_to_encrypt)
