@@ -115,6 +115,8 @@ def select_all_items3():
     else:
         listbox3.selection_clear(0, tk.END)
 
-
+def setFileInfo():
+  dispStr = "변환대상파일 : " + str(listbox1.size()) + "개" + " || 변환완료파일 : " + str(listbox2.size()) + "개" + " || 전송완료파일 : " + str(listbox3.size()) + "개"
+  label.config(text=dispStr)
 def show_alert(msg):
     messagebox.showinfo("알림", msg)

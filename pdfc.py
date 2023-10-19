@@ -75,7 +75,7 @@ def display_send_pdf_files():
     else:
         listbox3.delete(0, tk.END)
         listbox3.insert(tk.END, "폴더를 찾을 수 없습니다.")
-
+    setFileInfo()    
 
 display_docx_files()
 display_pdf_files()
@@ -218,6 +218,7 @@ def send_selected_items():
     
     label.config(text="")
     if selected_items:
+        #label.config(text="전송을 시작했습니다.")
         for idx in selected_items:
             selected_file = listbox2.get(idx)
             file_name_without_extension, _ = os.path.splitext(selected_file)  # 파일명과 확장자 분리
@@ -324,6 +325,7 @@ def delete_selected_items_list3():
 
     label.config(text="")
     if selected_items:
+        #label.config(text="삭제처리 중입니다.")
         for idx in selected_items:
             selected_file = listbox3.get(idx)
             print(selected_file)
