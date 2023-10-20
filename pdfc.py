@@ -16,66 +16,6 @@ from e_sign import *
 from license import *
 from gui_init import *
 # tkinter 윈도우 생성
-#btnAllSelFile btnAllSelConvertedFile btnAllSelSendFile select_all_items1
-
-# 확장자에 따라 파일 목록 가져오는 함수
-def get_files(folder, extension):
-    return [file for file in os.listdir(folder) if file.endswith(extension)]
-
-# 리스트 박스1에 docx파일 로드
-def display_docx_files():
-    global listbox1  # 리스트 박스를 전역 변수로 선언
-    
-    if os.path.exists(docx_folder):
-        pdf_files = get_files(docx_folder, ".docx")
-        
-        listbox1.delete(0, tk.END)  # 리스트 박스 내용 초기화
-        
-        if pdf_files:
-            for pdf_file in pdf_files:
-                listbox1.insert(tk.END, pdf_file)
-        else:
-            listbox1.insert(tk.END, "해당 확장자의 파일을 찾을 수 없습니다.")
-    else:
-        listbox1.delete(0, tk.END)
-        #listbox1.insert(tk.END, "폴더를 찾을 수 없습니다.")
-    
-    
-# 리스트 박스2에 pdf파일 로드 pdf_folder_sendout
-def display_pdf_files():
-    global listbox2  # 리스트 박스를 전역 변수로 선언
-    
-    if os.path.exists(pdf_folder_out):
-        pdf_files = get_files(pdf_folder_out, ".pdf")
-        
-        listbox2.delete(0, tk.END)  # 리스트 박스 내용 초기화
-        
-        if pdf_files:
-            for pdf_file in pdf_files:
-                listbox2.insert(tk.END, pdf_file)
-        else:
-            print( "해당 확장자의 파일을 찾을 수 없습니다.")
-    else:
-        listbox2.delete(0, tk.END)
-        listbox2.insert(tk.END, "폴더를 찾을 수 없습니다.")
-
-def display_send_pdf_files():
-    global listbox3  # 리스트 박스를 전역 변수로 선언
-    
-    if os.path.exists(pdf_folder_sendout):
-        pdf_files = get_files(pdf_folder_sendout, ".pdf")
-        
-        listbox3.delete(0, tk.END)  # 리스트 박스 내용 초기화
-        
-        if pdf_files:
-            for pdf_file in pdf_files:
-                listbox3.insert(tk.END, pdf_file)
-        else:
-            print( "해당 확장자의 파일을 찾을 수 없습니다.")
-    else:
-        listbox3.delete(0, tk.END)
-        listbox3.insert(tk.END, "폴더를 찾을 수 없습니다.")
-    setFileInfo()    
 
 display_docx_files()
 display_pdf_files()
@@ -115,12 +55,12 @@ def convert_selected_items():
             #docx파일을 pdf로 변환
             convert_docx_to_pdf(docx_file_path, pdf_file_out_path)
             #qr생성
-            '''
+            
             qrMake(qrPath, db_key)
             insert_qr_code_into_pdf(pdf_file_out_path, qrPath, output_path_pdf)
             sign(jar, output_path_pdf,output_path_pdf, crt, pem)
             convert_pdf_to_docx(output_path_pdf, docx_folder_out_path)
-            '''
+            
             os.remove(pdf_file_out_path) #임시파일삭제
         label.config(text="변환이 성공했습니다.")
         display_pdf_files()
@@ -357,7 +297,39 @@ def delete_selected_items_list3():
         #listbox2.insert(tk.END, "선택한 항목이 없습니다.")
         #label.config(text="선택한 파일 목록이 없습니다.")  # 라벨에 텍스트 입력
         show_alert("삭제할 파일을 선택하세요.")
-        
+
+# 전송완료 파일 삭제
+def backupSendFile():
+    selected_items = listbox3.curselection()  # 선택한 항목의 인덱스 가져오기
+    selected_files = [listbox3.get(idx) for idx in selected_items]  # 선택한 항목 가져오기
+    
+    #listbox2.delete(0, tk.END)  # 리스트 박스 내용 초기화
+    if not os.path.exists(pdf_folder_sendout_backup):
+        os.makedirs(pdf_folder_sendout_backup)
+    label.config(text="")
+    if selected_items:
+        #label.config(text="삭제처리 중입니다.")
+        for idx in selected_items:
+            selected_file = listbox3.get(idx)
+            print(selected_file)
+            file_name_without_extension, _ = os.path.splitext(selected_file)  # 파일명과 확장자 분리
+
+            # 원본 DOCX 파일 경로
+
+            # PDF로 저장할 파일 경로
+            output_path_sendpdf = pdf_folder_sendout + "\\" + file_name_without_extension + ".pdf" 
+            output_path_sendpdf_backup = pdf_folder_sendout_backup + "\\" + file_name_without_extension + ".pdf"
+            try:
+                shutil.move(output_path_sendpdf, output_path_sendpdf_backup)
+            except OSError as e:
+                print(f'파일 백업 오류: {e}')
+            
+        show_alert("파일 백업이 성공했습니다.")
+        display_send_pdf_files()
+    else:
+        #listbox2.insert(tk.END, "선택한 항목이 없습니다.")
+        #label.config(text="선택한 파일 목록이 없습니다.")  # 라벨에 텍스트 입력
+        show_alert("백업할 파일을 선택하세요.")     
 # 버튼에 동작 연결
 btnSelectDocxFile.config(command=display_docx_files)
 btnConvertDocxToPdf.config(command=convert_selected_items)
@@ -372,6 +344,7 @@ btnDelSendFile.config(command=delete_selected_items_list3)
 btnAllSelFile.config(command=select_all_items1)
 btnAllSelConvertedFile.config(command=select_all_items2)
 btnAllSelSendFile.config(command=select_all_items3)
+btnAllBackupSendFile.config(command=backupSendFile)
 
 # GUI 실행
 window.mainloop()
