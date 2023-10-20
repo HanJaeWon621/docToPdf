@@ -3,8 +3,10 @@ import os
 import win32com.client as win32
 from pdf2docx import Converter
 from docx2pdf import convert
+from docx import Document
+from concurrent.futures import ThreadPoolExecutor
 import fitz
-#import PyPDF2
+import PyPDF2
 import qrcode
 import shutil
 from PIL import Image
@@ -36,9 +38,7 @@ def convert_selected_items():
     if selected_items:
         for idx in selected_items:
             selected_file = listbox1.get(idx)
-            print(selected_file)
             file_name_without_extension, _ = os.path.splitext(selected_file)  # 파일명과 확장자 분리
-            print(file_name_without_extension)
             # 원본 DOCX 파일 경로
             docx_file_path = docx_folder + "\\" + selected_file
             file_name_without_extension = file_name_without_extension + '_' + file_postfix
@@ -53,14 +53,14 @@ def convert_selected_items():
             # 파일이 존재하는지 확인 후 삭제
             db_key = file_name_without_extension + ".pdf"
             #docx파일을 pdf로 변환
-            convert_docx_to_pdf(docx_file_path, pdf_file_out_path)
+            convert_docx_to_pdf_com(docx_file_path, pdf_file_out_path)
             #qr생성
             
             qrMake(qrPath, db_key)
             insert_qr_code_into_pdf(pdf_file_out_path, qrPath, output_path_pdf)
             sign(jar, output_path_pdf,output_path_pdf, crt, pem)
             convert_pdf_to_docx(output_path_pdf, docx_folder_out_path)
-            
+            convert_pdf_to_docx_parrel(output_path_pdf, docx_folder_out_path)
             os.remove(pdf_file_out_path) #임시파일삭제
         label.config(text="변환이 성공했습니다.")
         display_pdf_files()
@@ -96,11 +96,50 @@ def convert_pdf_to_docx(input_path, output_path):
     cv = Converter(input_path)
     cv.convert(output_path)      # all pages by default
     cv.close()
+
+def pdf_to_text(pdf_file, start_page, end_page):
+    text = ""
+    pdf = PyPDF2.PdfFileReader(pdf_file)
+    for page in range(start_page, end_page):
+        text += pdf.getPage(page).extractText()
+    return text
+
+def text_to_docx(text, docx_document):
+    docx_document.add_paragraph(text)
+    
+def convert_pdf_to_docx_parrel(input_path, output_path):
+    pdf_file = input_path  # PDF 파일명
+    docx_file = output_path  # DOCX 파일명
+    num_threads = 4  # 사용할 스레드 수
+
+    num_threads = 4  # 사용할 스레드 수
+
+    with open(pdf_file, 'rb') as pdf:
+        num_pages = PyPDF2.PdfFileReader(pdf).getNumPages()
+
+    with ThreadPoolExecutor(max_workers=num_threads) as executor:
+        docx_document = Document()  # Document 객체를 직접 만듭니다.
+
+        futures = []
+
+        for i in range(num_threads):
+            start_page = i * num_pages // num_threads
+            end_page = (i + 1) * num_pages // num_threads
+
+            future = executor.submit(pdf_to_text, pdf_file, start_page, end_page)
+            futures.append(future)
+
+        for future in futures:
+            text = future.result()
+            text_to_docx(text, docx_document)
+
+        docx_document.save(docx_file)
+
+    print(f"PDF 파일을 DOCX 파일로 변환 완료: {docx_file}")
 #qr이미지 생성
 def qrMake(qrpath, db_key):
     # QR 코드 데이터
     qr_url = 'http://hjw8393.cafe24app.com/share/'
-    #https://hjw7603.s3.ap-northeast-2.amazonaws.com/share/'
     qr_data = qr_url + db_key  # QR 코드에 포함될 데이터 nodejs 파일 경로
 
     # QR 코드 생성

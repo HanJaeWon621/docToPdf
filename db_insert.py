@@ -1,11 +1,8 @@
 import mysql.connector
 from enc_dec import *
 # MySQL 연결 설정
+
 config = {
-    'host': 'database-1.c2tc0okknqs6.us-east-1.rds.amazonaws.com',        # MySQL 호스트 주소
-    'user': 'admin',    # MySQL 사용자 이름
-    'password': 'pwd061218*',# MySQL 비밀번호
-    'database': 'share_db' # 사용할 데이터베이스 이름
 }
 
 def upsert_db(file_id, share_doc_url):
