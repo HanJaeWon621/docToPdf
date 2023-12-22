@@ -116,7 +116,7 @@ if __name__ == "__main__":
         make_enc('99991231')
         dec_str = get_dec()
     elif div == '2':
-        data_to_encrypt = 'AKIA6BWLSRIRQKSZGXML'
+        data_to_encrypt = '1'
         encrypted_data = make_enc_awsacckey(data_to_encrypt)
         #key, encrypted_data
          # 키 파일에서 키를 읽어옴
@@ -126,12 +126,12 @@ if __name__ == "__main__":
             
         print("복호화된 문자열:", dec_str)
     elif div == '3':
-        data_to_encrypt = 'LgKVGC3JUfso3R9+EZlY9kRpvnzhSYhox1zyz7Qk'
+        data_to_encrypt = '1'
         make_enc_awssecacckey(data_to_encrypt)
         dec_str = get_dec_awssecacckey()
         print("복호화된 문자열:", dec_str)
     elif div == '4':
-        dec_str = get_dec_data_fromdb('qP7e2EJc4pAVVGQ7PsRgppClxb7cR5MQ35_CzYpgCOQ=', 'gAAAAABlhatLU_NNMAcCFxojs4aecYqo2fRQRWnKAEYJzfrOJNHl5GXR-jxxNZawqyarccfEB8M45WrBQSmuY5lFTMtFCBbHxTzxLuRg36zx88EKU272z-I=')
+        dec_str = get_dec_data_fromdb('1', '1')
         print("복호화된 문자열:", dec_str)
     #make_enc(data_to_encrypt)
     
