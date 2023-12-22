@@ -1,10 +1,24 @@
 import mysql.connector
 from enc_dec import *
+from dbinfo import *
 # MySQL 연결 설정
-
+'''
+global host    # MySQL 호스트 주소
+global user    # MySQL 사용자 이름
+global password  # MySQL 비밀번호
+global database   # 사용할 데이터베이스 이름'''
 config = {
+    'host':host,       # MySQL 호스트 주소
+    'user':user,   # MySQL 사용자 이름
+    'password':password,   # MySQL 비밀번호
+    'database':database   # 사용할 데이터베이스 이름
 }
-
+config2 = {
+    'host':'share-db.cduqecwwepfv.ap-northeast-2.rds.amazonaws.com',       # MySQL 호스트 주소
+    'user':'admin',   # MySQL 사용자 이름
+    'password':'pwd061218*',   # MySQL 비밀번호
+    'database':'share_db'   # 사용할 데이터베이스 이름
+}
 def upsert_db(file_id, share_doc_url):
     
     
@@ -98,8 +112,8 @@ def get_aws():
     #print(existing_data[1])
     #print(existing_data[2])
 
-    a = get_dec_awsacckey(key, existing_data[1])
-    b = get_dec_awsacckey(key, existing_data[2])
+    a = get_dec_data_fromdb(key, existing_data[1])
+    b = get_dec_data_fromdb(key, existing_data[2])
     empty_tuple = (a,b)
     #print(a, b)
     #print(existing_data.type)

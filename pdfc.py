@@ -18,7 +18,7 @@ from e_sign import *
 from license import *
 from gui_init import *
 # tkinter 윈도우 생성
-
+bucket_name ='sharehjw'
 display_docx_files()
 display_pdf_files()
 display_send_pdf_files()
@@ -60,7 +60,7 @@ def convert_selected_items():
             insert_qr_code_into_pdf(pdf_file_out_path, qrPath, output_path_pdf)
             sign(jar, output_path_pdf,output_path_pdf, crt, pem)
             convert_pdf_to_docx(output_path_pdf, docx_folder_out_path)
-            convert_pdf_to_docx_parrel(output_path_pdf, docx_folder_out_path)
+            #convert_pdf_to_docx_parrel(output_path_pdf, docx_folder_out_path)
             os.remove(pdf_file_out_path) #임시파일삭제
         label.config(text="변환이 성공했습니다.")
         display_pdf_files()
@@ -208,8 +208,9 @@ def send_selected_items():
             db_key = file_name_without_extension + ".pdf"
             object_key = 'share/'+ db_key
             local_file_path = output_path_pdf
-            bucket_name ='hjw7603'
-            share_doc_url = 'https://hjw7603.s3.ap-northeast-2.amazonaws.com/share/' + db_key
+            
+            #share_doc_url = 'https://'+bucket_name+'.s3.ap-northeast-2.amazonaws.com/share/' + db_key
+            share_doc_url = 'https://'+bucket_name+'.s3.ap-northeast-2.amazonaws.com/' + object_key
             upload_file_aws(bucket_name, object_key, local_file_path)
             
             upsert_db(db_key, share_doc_url)
@@ -323,7 +324,7 @@ def delete_selected_items_list3():
                 db_key = file_name_without_extension + ".pdf"
                 #share_doc_url = upload_file_to(output_path_pdf, db_key)
                 object_key = 'share/'+ db_key
-                bucket_name ='hjw7603'
+                #bucket_name ='hjw7603'
                 delete_file_aws(bucket_name, object_key)
                 delete_db(db_key)
             except OSError as e:
