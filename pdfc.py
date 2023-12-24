@@ -17,6 +17,7 @@ from enc_dec import *
 from e_sign import *
 from license import *
 from gui_init import *
+from appinfo import *
 # tkinter 윈도우 생성
 bucket_name ='sharehjw'
 display_docx_files()
@@ -139,7 +140,7 @@ def convert_pdf_to_docx_parrel(input_path, output_path):
 #qr이미지 생성
 def qrMake(qrpath, db_key):
     # QR 코드 데이터
-    qr_url = 'http://hjw8393.cafe24app.com/share/'
+    qr_url = cafe24url
     qr_data = qr_url + db_key  # QR 코드에 포함될 데이터 nodejs 파일 경로
 
     # QR 코드 생성
