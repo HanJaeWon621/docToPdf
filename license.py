@@ -54,7 +54,7 @@ def get_file_postfix():
     hour = now.hour
     minute = now.minute
     second = now.second
-    file_postfix = str(year) + '_' + str(month) + '_' + str(day) + '_' + str(hour) + ':' + str(minute) + ':' + str(second)
+    file_postfix = str(year) + '_' + str(month) + '' + str(day) + '' + str(hour) + '' + str(minute) + '' + str(second)
     return file_postfix
 if __name__ == "__main__":
     print('license check:', check_licence_date())

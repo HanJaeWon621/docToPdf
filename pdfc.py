@@ -55,7 +55,7 @@ def convert_selected_items():
             # 파일이 존재하는지 확인 후 삭제
             db_key = file_name_without_extension + ".pdf"
             #docx파일을 pdf로 변환
-            convert_docx_to_pdf_com(docx_file_path, pdf_file_out_path)
+            convert_docx_to_pdf(docx_file_path, pdf_file_out_path)
             #qr생성
             
             qrMake(qrPath, db_key)
@@ -72,6 +72,7 @@ def convert_selected_items():
 
 #docx파일을 pdf로 변환
 def convert_docx_to_pdf(input_path, output_path):
+    print(input_path, output_path)
     convert(input_path, output_path)
     
     
@@ -157,7 +158,7 @@ def qrMake(qrpath, db_key):
     qr_img = qr.make_image(fill_color="black", back_color="white")
 
     # 로고 이미지 열기
-    logo_path = "logo.png"  # 로고 이미지 파일 경로
+    logo_path = "c:\\pdf\\logo.png"  # 로고 이미지 파일 경로
     logo_img = Image.open(logo_path)
 
     # 로고 이미지 크기 조정
