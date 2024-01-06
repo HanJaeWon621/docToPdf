@@ -18,8 +18,9 @@ from e_sign import *
 from license import *
 from gui_init import *
 from appinfo import *
+from hash import *
 # tkinter 윈도우 생성
-bucket_name ='sharehjw'
+bucket_name = awsbucket #'sharehjw'
 display_docx_files()
 display_pdf_files()
 display_send_pdf_files()
@@ -80,7 +81,7 @@ def convert_docx_to_pdf_com(input_path, output_path):
 
     # 워드 애플리케이션을 보이지 않도록 설정
     word.Visible = 0
-
+    print(input_path)
     # 원본 DOCX 파일 열기
     doc = word.Documents.Open(input_path)
 
@@ -213,8 +214,8 @@ def send_selected_items():
             #share_doc_url = 'https://'+bucket_name+'.s3.ap-northeast-2.amazonaws.com/share/' + db_key
             share_doc_url = 'https://'+bucket_name+'.s3.ap-northeast-2.amazonaws.com/' + object_key
             upload_file_aws(bucket_name, object_key, local_file_path)
-            
-            upsert_db(db_key, share_doc_url)
+            hash_value = calculate_sha256(local_file_path)
+            upsert_db(db_key, share_doc_url, hash_value)
             shutil.move(output_path_pdf, sendoutput_path_pdf)
     
         #label.config(text="파일전송이 성공했습니다.")

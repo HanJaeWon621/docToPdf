@@ -14,7 +14,7 @@ config = {
     'database':database   # 사용할 데이터베이스 이름
 }
 
-def upsert_db(file_id, share_doc_url):
+def upsert_db(file_id, share_doc_url, hash):
     
     
     # MySQL 연결
@@ -28,10 +28,10 @@ def upsert_db(file_id, share_doc_url):
     select_query = "SELECT * FROM share_doc WHERE file_id = %s"
     
     # 데이터 삽입 쿼리
-    insert_query = "INSERT INTO share_doc (file_id, share_doc_url) VALUES (%s, %s)"
+    insert_query = "INSERT INTO share_doc (file_id, share_doc_url,hash) VALUES (%s, %s,%s)"
     
     # 데이터 업데이트 쿼리
-    update_query = "UPDATE share_doc SET share_doc_url = %s, uptdate=now()  WHERE file_id = %s"
+    update_query = "UPDATE share_doc SET share_doc_url = %s, hash=%s, uptdate=now()  WHERE file_id = %s"
     
     # 데이터베이스에서 데이터 조회
     cursor.execute(select_query, (file_id_to_search,))
@@ -40,13 +40,13 @@ def upsert_db(file_id, share_doc_url):
     if existing_data:
         # 데이터가 존재하는 경우 업데이트
         new_share_data = share_doc_url  # 업데이트할 데이터에 맞게 수정
-        cursor.execute(update_query, (new_share_data, file_id_to_search))
+        cursor.execute(update_query, (new_share_data, file_id_to_search,hash))
         conn.commit()
         print(f"데이터가 업데이트되었습니다. (file_id: {file_id_to_search})")
     else:
         # 데이터가 존재하지 않는 경우 삽입
         share_data_to_insert = share_doc_url  # 삽입할 데이터에 맞게 수정
-        cursor.execute(insert_query, (file_id_to_search, share_data_to_insert))
+        cursor.execute(insert_query, (file_id_to_search, share_data_to_insert,hash))
         conn.commit()
         print(f"데이터가 삽입되었습니다. (file_id: {file_id_to_search})")
     
